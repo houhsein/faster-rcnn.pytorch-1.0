@@ -27,7 +27,7 @@ import configparser
 
 
 # Faster RCNN module
-sys.path.insert(0, '/tf/jacky831006/faster-rcnn.pytorch-0.4/lib/')
+sys.path.insert(0, '/tf/jacky831006/faster-rcnn.pytorch-1.0/lib/')
 from model.utils.config_3d import cfg, cfg_from_file, cfg_from_list, get_output_dir
 from model.utils.net_utils_3d import weights_normal_init, save_net, load_net, \
       adjust_learning_rate, save_checkpoint, clip_gradient
@@ -72,7 +72,7 @@ train_df = pd.read_csv('/tf/jacky831006/object_detect_data_new/spleen_train_2022
 valid_df = pd.read_csv('/tf/jacky831006/object_detect_data_new/spleen_valid_20220310.csv')
 test_df = pd.read_csv('/tf/jacky831006/object_detect_data_new/spleen_test_20220310.csv')
 
-cfgpath ='/tf/jacky831006/faster-rcnn.pytorch-0.4/config/standard_config_new_data_onelabel_9.ini'
+cfgpath ='/tf/jacky831006/faster-rcnn.pytorch-1.0/config/standard_config_new_data_onelabel_9.ini'
 conf = configparser.ConfigParser()
 conf.read(cfgpath)
 
@@ -582,7 +582,7 @@ def test(model, test_loader, class_list):
 
 #---------------- Data import ----------------
 '''
-with open("/tf/jacky831006/faster-rcnn.pytorch-0.4/ob_train_list.csv","r") as csvfile:
+with open("/tf/jacky831006/faster-rcnn.pytorch-1.0/ob_train_list.csv","r") as csvfile:
     rows = csv.DictReader(csvfile)
     data_dic = []
     for row in rows:
@@ -732,7 +732,7 @@ max_per_image = 10
 # Setting the chickpoint file path
 # file name (time)
 now = datetime.utcnow().strftime("%Y%m%d%H%M%S")               
-root_logdir = "/tf/jacky831006/faster-rcnn.pytorch-0.4/tfboard"     
+root_logdir = "/tf/jacky831006/faster-rcnn.pytorch-1.0/tfboard"     
 logdir = "{}/run-{}/".format(root_logdir, now) 
 
 # tfboard file path
@@ -740,7 +740,7 @@ writer = SummaryWriter(logdir)
 if not os.path.isdir(logdir):
     os.makedirs(logdir)
 # check_point path
-check_path = f'/tf/jacky831006/faster-rcnn.pytorch-0.4/training_checkpoints/{now}'
+check_path = f'/tf/jacky831006/faster-rcnn.pytorch-1.0/training_checkpoints/{now}'
 if not os.path.isdir(check_path):
     os.makedirs(check_path)
 
@@ -748,7 +748,7 @@ if not os.path.isdir(check_path):
 # train(model, epochs, optimizer, train_loader, valid_loader, early_stop)
 test_model=train(fasterRCNN, epoch, optimizer, train_data, valid_data, early_stop, all_cls)
 # Test running
-fasterRCNN.load_state_dict(torch.load(f'/tf/jacky831006/faster-rcnn.pytorch-0.4/training_checkpoints/{now}/{best_metric}.pth'))
+fasterRCNN.load_state_dict(torch.load(f'/tf/jacky831006/faster-rcnn.pytorch-1.0/training_checkpoints/{now}/{best_metric}.pth'))
 test_diou = test(fasterRCNN,test_data, all_cls)
 
 # remove dataloader to free memory
@@ -857,7 +857,7 @@ if cross_valid:
         # Setting the chickpoint file path
         # file name (time)
         now = datetime.utcnow().strftime("%Y%m%d%H%M%S")               
-        root_logdir = "/tf/jacky831006/faster-rcnn.pytorch-0.4/tfboard"     
+        root_logdir = "/tf/jacky831006/faster-rcnn.pytorch-1.0/tfboard"     
         logdir = "{}/run-{}/".format(root_logdir, now) 
 
         # tfboard file path
@@ -865,7 +865,7 @@ if cross_valid:
         if not os.path.isdir(logdir):
             os.makedirs(logdir)
         # check_point path
-        check_path = f'/tf/jacky831006/faster-rcnn.pytorch-0.4/training_checkpoints/{now}'
+        check_path = f'/tf/jacky831006/faster-rcnn.pytorch-1.0/training_checkpoints/{now}'
         if not os.path.isdir(check_path):
             os.makedirs(check_path)
 
@@ -874,7 +874,7 @@ if cross_valid:
         test_model=train(fasterRCNN, epoch, optimizer, train_data, valid_data, early_stop)
 
         # Test running
-        fasterRCNN.load_state_dict(torch.load(f'/tf/jacky831006/faster-rcnn.pytorch-0.4/training_checkpoints/{now}/{best_metric}.pth'))
+        fasterRCNN.load_state_dict(torch.load(f'/tf/jacky831006/faster-rcnn.pytorch-1.0/training_checkpoints/{now}/{best_metric}.pth'))
         test_diou = test(fasterRCNN,test_data)
 
         # remove dataloader to free memory

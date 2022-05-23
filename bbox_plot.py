@@ -249,42 +249,42 @@ def plot_png(df, transform, predict, type, data_type):
 
         if type == 'middle':
             if predict:
-                save_path = f'/tf/jacky831006/faster-rcnn.pytorch-0.4/bouding_box_1.2_20220316081421_0.5636/{data_type}/middle_predict_type'
+                save_path = f'/tf/jacky831006/faster-rcnn.pytorch-1.0/bouding_box_1.2_20220316081421_0.5636/{data_type}/middle_predict_type'
                 if not os.path.isdir(save_path):
                     os.makedirs(save_path)
                 vis_save_middle(data['image'].numpy(), eval(data['bbox'][0]), newID, save_path, True)
             else:
-                save_path = f'/tf/jacky831006/faster-rcnn.pytorch-0.4/bouding_box_1.2_20220316081421_0.5636/{data_type}/middle_gt_type'
+                save_path = f'/tf/jacky831006/faster-rcnn.pytorch-1.0/bouding_box_1.2_20220316081421_0.5636/{data_type}/middle_gt_type'
                 if not os.path.isdir(save_path):
                     os.makedirs(save_path)
                 vis_save_middle(data['image'].numpy(), data['label'][0][0], newID, save_path, False)
         elif type == 'all':
             if predict:
-                save_path = f'/tf/jacky831006/faster-rcnn.pytorch-0.4/bouding_box_1.2_20220316081421_0.5636/{data_type}/all_predict_type/{newID}'
+                save_path = f'/tf/jacky831006/faster-rcnn.pytorch-1.0/bouding_box_1.2_20220316081421_0.5636/{data_type}/all_predict_type/{newID}'
                 if not os.path.isdir(save_path):
                     os.makedirs(save_path)
                 vis_save(data['image'].numpy(), eval(data['bbox'][0]), save_path, True)
             else:
-                save_path = f'/tf/jacky831006/faster-rcnn.pytorch-0.4/bouding_box_1.2_20220316081421_0.5636/{data_type}/all_gt_type/{newID}'
+                save_path = f'/tf/jacky831006/faster-rcnn.pytorch-1.0/bouding_box_1.2_20220316081421_0.5636/{data_type}/all_gt_type/{newID}'
                 if not os.path.isdir(save_path):
                     os.makedirs(save_path)
                 vis_save(data['image'].numpy(), data['label'][0][0], save_path, False)
         else:
             # 0,25,50,75,100% image
             if predict:
-                save_path = f'/tf/jacky831006/faster-rcnn.pytorch-0.4/bouding_box_1.2_20220316081421_0.5636/{data_type}/percen_predict_type/{newID}'
+                save_path = f'/tf/jacky831006/faster-rcnn.pytorch-1.0/bouding_box_1.2_20220316081421_0.5636/{data_type}/percen_predict_type/{newID}'
                 if not os.path.isdir(save_path):
                     os.makedirs(save_path)
                 vis_save_percen(data['image'].numpy(), eval(data['bbox'][0]), save_path, True)
             else:
-                save_path = f'/tf/jacky831006/faster-rcnn.pytorch-0.4/bouding_box_1.2_20220316081421_0.5636/{data_type}/percen_gt_type/{newID}'
+                save_path = f'/tf/jacky831006/faster-rcnn.pytorch-1.0/bouding_box_1.2_20220316081421_0.5636/{data_type}/percen_gt_type/{newID}'
                 if not os.path.isdir(save_path):
                     os.makedirs(save_path)
                 vis_save_percen(data['image'].numpy(), data['label'][0][0], save_path, False)
     return save_path
 
 def plot_vedio(path, img_name, predict):
-    #path = '/tf/jacky831006/faster-rcnn.pytorch-0.4/bouding_box_1.2_20220316081421_0.5636/problem/21179295'
+    #path = '/tf/jacky831006/faster-rcnn.pytorch-1.0/bouding_box_1.2_20220316081421_0.5636/problem/21179295'
     img = cv2.imread(f'{path}/{img_name}/000.png')
     size = (img.shape[1],img.shape[0])
     fourcc = cv2.VideoWriter_fourcc(*'mp4v') 
@@ -317,7 +317,7 @@ if __name__ == '__main__':
     #bbox_file = pd.read_csv('/tf/jacky831006/faster-rcnn.pytorch-0.4/bouding_box_1.2_20220316081421_0.5636_new_data_valid_latest.csv')
     #bbox_file = pd.read_csv('/tf/jacky831006/faster-rcnn.pytorch-0.4/bouding_box_1.2_20220316081421_0.5636_resize_new_data_valid_final_old.csv')
     #bbox_file = pd.read_csv('/tf/jacky831006/faster-rcnn.pytorch-0.4/bouding_box_1.2_20220316081421_0.5636_resize_new_data_test_final.csv')
-    bbox_file = pd.read_csv('/tf/jacky831006/faster-rcnn.pytorch-0.4/bouding_box_1.2_20220316081421_0.5636_resize_new_data_test_final_by_val.csv')
+    bbox_file = pd.read_csv('/tf/jacky831006/faster-rcnn.pytorch-1.0/bouding_box_1.2_20220316081421_0.5636_resize_new_data_test_final_by_val.csv')
     '''
     # GT 
     train_file = pd.read_csv('/tf/jacky831006/object_detect_data_new/spleen_train_20220310.csv')
@@ -380,9 +380,9 @@ if __name__ == '__main__':
 
     if png_type == 'all':
         if predict:
-            path = f'/tf/jacky831006/faster-rcnn.pytorch-0.4/bouding_box_1.2_20220316081421_0.5636/{data_type}/all_predict_type'
+            path = f'/tf/jacky831006/faster-rcnn.pytorch-1.0/bouding_box_1.2_20220316081421_0.5636/{data_type}/all_predict_type'
         else:
-            path = f'/tf/jacky831006/faster-rcnn.pytorch-0.4/bouding_box_1.2_20220316081421_0.5636/{data_type}/all_gt_type'
+            path = f'/tf/jacky831006/faster-rcnn.pytorch-1.0/bouding_box_1.2_20220316081421_0.5636/{data_type}/all_gt_type'
         file_name = os.listdir(path)
         for i in file_name:
             plot_vedio(path, i, predict)

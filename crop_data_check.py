@@ -25,7 +25,7 @@ from skimage.transform import resize
 import configparser
 
 # Faster RCNN module
-sys.path.insert(0, '/tf/jacky831006/faster-rcnn.pytorch-0.4/lib/')
+sys.path.insert(0, '/tf/jacky831006/faster-rcnn.pytorch-1.0/lib/')
 from model.utils.config_3d import cfg, cfg_from_file, cfg_from_list, get_output_dir
 from model.utils.net_utils_3d import weights_normal_init, save_net, load_net, \
       adjust_learning_rate, save_checkpoint, clip_gradient
@@ -56,7 +56,7 @@ from monai.transforms import (
 )
 
 # Need change the config input  
-cfgpath ='/tf/jacky831006/faster-rcnn.pytorch-0.4/config/standard_config_new_data_onelabel_2.ini'
+cfgpath ='/tf/jacky831006/faster-rcnn.pytorch-1.0/config/standard_config_new_data_onelabel_2.ini'
 # Select the fold of data, if only one fold then fold is 0
 fold = 0
 print(f'\n Select config:{cfgpath} & fold:{fold}')
@@ -614,10 +614,10 @@ def inference(model, inference_loader, resize_ori, data_dic, class_list, vis):
                         vis_show(final_image, overlap_box[:,:6].cpu().numpy())
                     '''
                     # file path 
-                    gt_path = f'/tf/jacky831006/faster-rcnn.pytorch-0.4/object_test/{png_file_name}/GT'
+                    gt_path = f'/tf/jacky831006/faster-rcnn.pytorch-1.0/object_test/{png_file_name}/GT'
                     if not os.path.isdir(gt_path):
                         os.makedirs(gt_path)
-                    label_path = f'/tf/jacky831006/faster-rcnn.pytorch-0.4/object_test/{png_file_name}/label'
+                    label_path = f'/tf/jacky831006/faster-rcnn.pytorch-1.0/object_test/{png_file_name}/label'
                     if not os.path.isdir(label_path):
                         os.makedirs(label_path)
                     vis_detections(im_data.cpu().numpy(), gt_boxes[:,:6].cpu().numpy(), gt_path)
@@ -714,7 +714,7 @@ max_per_image = 10
 data_file = eval(conf.get('Data output','data file name'))[fold]
 data_diou = eval(conf.get('Data output','best valid diou'))[fold]
 
-data_weight = f'/tf/jacky831006/faster-rcnn.pytorch-0.4/training_checkpoints/{data_file}/{data_diou}.pth'
+data_weight = f'/tf/jacky831006/faster-rcnn.pytorch-1.0/training_checkpoints/{data_file}/{data_diou}.pth'
 
 fasterRCNN.load_state_dict(torch.load(data_weight))
 thresh = 0.0
@@ -792,7 +792,7 @@ def plot_diou(level, transform):
     for data in inference_data:
         file_name = data['image_meta_dict']['filename_or_obj'][0]
         newID = file_name.split('/')[-1].split('@')[0]
-        file_dir = f'/tf/jacky831006/faster-rcnn.pytorch-0.4/bouding_box_{ratio}_{data_weight.split("/")[-2]}_{data_weight.split("/")[-1][:6]}/{level}/{newID}/'
+        file_dir = f'/tf/jacky831006/faster-rcnn.pytorch-1.0/bouding_box_{ratio}_{data_weight.split("/")[-2]}_{data_weight.split("/")[-1][:6]}/{level}/{newID}/'
         if not os.path.isdir(file_dir):
             os.makedirs(file_dir)
         vis_save(data['image'].numpy(), data['label'].cpu().numpy()[0][0],file_dir)
@@ -814,6 +814,6 @@ else:
     else:
         output_file_name = f'bouding_box_{ratio}_{data_weight.split("/")[-2]}_{data_weight.split("/")[-1][:6]}_resize_new_data_test_compare_gt.csv'
 
-df_out_new.to_csv(f'/tf/jacky831006/faster-rcnn.pytorch-0.4/{output_file_name}')
+df_out_new.to_csv(f'/tf/jacky831006/faster-rcnn.pytorch-1.0/{output_file_name}')
 
 print('All is done!')

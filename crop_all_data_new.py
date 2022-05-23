@@ -28,7 +28,7 @@ import configparser
 Produce the csv with BBox and 
 '''
 # Faster RCNN module
-sys.path.insert(0, '/tf/jacky831006/faster-rcnn.pytorch-0.4/lib/')
+sys.path.insert(0, '/tf/jacky831006/faster-rcnn.pytorch-1.0/lib/')
 from model.utils.config_3d import cfg, cfg_from_file, cfg_from_list, get_output_dir
 from model.utils.net_utils_3d import weights_normal_init, save_net, load_net, \
       adjust_learning_rate, save_checkpoint, clip_gradient
@@ -65,7 +65,7 @@ print(f'Use resize_ori:{resize_ori}', flush=True)
 # Data import
 # standard_config
 # data_weight = '/tf/jacky831006/faster-rcnn.pytorch-0.4/training_checkpoints/20210826060507/0.4343615950125715.pth'
-cfgpath ='/tf/jacky831006/faster-rcnn.pytorch-0.4/config/standard_config_new_data_onelabel_2.ini'
+cfgpath ='/tf/jacky831006/faster-rcnn.pytorch-1.0/config/standard_config_new_data_onelabel_2.ini'
 # Select the fold of data, if only one fold then fold is 0
 fold = 0
 print(f'\n Select config:{cfgpath} & fold:{fold}')
@@ -75,7 +75,7 @@ conf.read(cfgpath)
 data_file = eval(conf.get('Data output','data file name'))[fold]
 data_diou = eval(conf.get('Data output','best valid diou'))[fold]
 
-data_weight = f'/tf/jacky831006/faster-rcnn.pytorch-0.4/training_checkpoints/{data_file}/{data_diou}.pth'
+data_weight = f'/tf/jacky831006/faster-rcnn.pytorch-1.0/training_checkpoints/{data_file}/{data_diou}.pth'
 
 # Use valid data test dilation 
 valid = False
@@ -603,10 +603,10 @@ def inference(model, inference_loader, resize_ori, data_dic, class_list, vis ):
                         vis_show(final_image, overlap_box[:,:6].cpu().numpy())
                     '''
                     # file path 
-                    gt_path = f'/tf/jacky831006/faster-rcnn.pytorch-0.4/object_test/{png_file_name}/GT'
+                    gt_path = f'/tf/jacky831006/faster-rcnn.pytorch-1.0/object_test/{png_file_name}/GT'
                     if not os.path.isdir(gt_path):
                         os.makedirs(gt_path)
-                    label_path = f'/tf/jacky831006/faster-rcnn.pytorch-0.4/object_test/{png_file_name}/label'
+                    label_path = f'/tf/jacky831006/faster-rcnn.pytorch-1.0/object_test/{png_file_name}/label'
                     if not os.path.isdir(label_path):
                         os.makedirs(label_path)
                     vis_detections(im_data.cpu().numpy(), gt_boxes[:,:6].cpu().numpy(), gt_path)
